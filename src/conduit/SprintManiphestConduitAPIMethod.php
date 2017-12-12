@@ -61,7 +61,7 @@ abstract class SprintManiphestConduitAPIMethod extends ConduitAPIMethod {
     if ($is_new) {
       $task->setTitle((string)$request->getValue('title'));
       $task->setDescription((string)$request->getValue('description'));
-      $changes[ManiphestTransaction::TYPE_STATUS] =
+      $changes[ManiphestTaskStatusTransaction::TRANSACTIONTYPE] =
           ManiphestTaskStatus::getDefaultStatus();
       $changes[PhabricatorTransactions::TYPE_SUBSCRIBERS] =
           array('+' => array($request->getUser()->getPHID()));
@@ -89,7 +89,7 @@ abstract class SprintManiphestConduitAPIMethod extends ConduitAPIMethod {
           throw id(new ConduitException('ERR-INVALID-PARAMETER'))
               ->setErrorDescription(pht('Status set to invalid value.'));
         }
-        $changes[ManiphestTransaction::TYPE_STATUS] = $status;
+        $changes[ManiphestTaskStatusTransaction::TRANSACTIONTYPE] = $status;
       }
     }
 
@@ -299,4 +299,3 @@ abstract class SprintManiphestConduitAPIMethod extends ConduitAPIMethod {
   }
 
 }
-
